@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.example.administrator.rentcar.activity.MainActivity">
+
+
+    <com.example.administrator.rentcar.view.TestEditText
+        android:id="@+id/test"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_margin="5dp"
+        android:orientation="horizontal"
+        android:background="@drawable/drawable_background"
+        app:addLeftText="true"
+        />
+
+    <com.example.administrator.rentcar.view.CombineEditText
+        android:id="@+id/mConombineEidt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:background="@drawable/edit_combine_background"
+        android:orientation="horizontal"
+        app:editCursorVisible="true"
+        app:editHintText="输入密码"
+        app:editTextGravity="END"
+        app:leftText="账号"
+        app:leftTextVisible="true"
+        app:editEnabled="false"
+        app:rightIconVisible="true"
+        app:hidePhoneNumber="true"
+        app:editInputType="PHONE"/>
+
+    <com.example.administrator.rentcar.view.CombineEditText
+        android:id="@+id/edit2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/edit_combine_background"
+        app:editHintText="请输入"
+        app:editTextGravity="START"
+        app:rightIconVisible="true"
+        app:editWidth="100dp"
+        app:innerImgMarginLeft="5dp"
+        app:innerTextSize="11sp"
+        app:leftTextVisible="true"
+        app:leftText="密码"
+        app:editEnabled="true"/>
+
+    <com.example.administrator.rentcar.view.customeET
+        android:id="@+id/test001"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:background="@color/colorAccent"
+        android:layout_margin="5dp"
+        android:maxLines="1"/>
+
+    <com.example.administrator.rentcar.view.CircleProgressView
+        android:id="@+id/cirlce_test"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"/>
+
+</LinearLayout>

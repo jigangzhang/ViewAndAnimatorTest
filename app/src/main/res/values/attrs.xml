@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="TestEditText">
+        <attr name="leftIcon" format="reference"/>
+        <attr name="rightIcon" format="reference"/>
+        <attr name="addLeftText" format="boolean"/>
+        <attr name="text" format="string"/>
+    </declare-styleable>
+
+    <declare-styleable name="CombineEditText">
+        <attr name="textLeftIcon" format="reference"/>
+        <attr name="editRightIcon" format="reference"/>
+        <attr name="textRightIcon" format="reference"/>
+        <attr name="leftText" format="string"/>
+        <attr name="editHintText" format="string"/>
+        <attr name="editText" format="string"/>
+        <attr name="leftTextVisible" format="boolean"/>
+        <attr name="rightIconVisible" format="boolean"/>
+        <attr name="editCursorVisible" format="boolean"/>
+        <attr name="editEnabled" format="boolean"/>
+        <attr name="editTextGravity">
+            <enum name="END" value="8388613"/>
+            <enum name="START" value="8388611"/>
+            <enum name="CENTER" value="17"/>
+        </attr>
+        <attr name="editWidth" format="dimension"/>
+        <attr name="innerImgMarginLeft" format="dimension"/>
+        <attr name="innerImgMarginTop" format="dimension"/>
+        <attr name="innerImgMarginRight" format="dimension"/>
+        <attr name="innerImgMarginBottom" format="dimension"/>
+        <attr name="innerTextSize" format="dimension"/>
+
+        <attr name="hidePhoneNumber" format="boolean"/>
+        <attr name="editInputType" format="enum">
+            <enum name="PHONE" value="3"/>
+            <enum name="NUMBER" value="2"/>
+            <enum name="PASSWORD_TEXT" value="128"/>
+        </attr>
+    </declare-styleable>
+</resources>
