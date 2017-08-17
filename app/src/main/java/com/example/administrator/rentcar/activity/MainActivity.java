@@ -13,6 +13,8 @@ import android.widget.Toast;
 
 import com.example.administrator.rentcar.R;
 import com.example.administrator.rentcar.animator.AnimatorFactory;
+import com.example.administrator.rentcar.entity.DaoSession;
+import com.example.administrator.rentcar.entity.User;
 import com.example.administrator.rentcar.net.HttpConnection;
 import com.example.administrator.rentcar.view.CircleProgressView;
 import com.example.administrator.rentcar.view.CombineEditText;
@@ -43,6 +45,10 @@ public class MainActivity extends AppCompatActivity {
                 new httpRequest().start();
                 AnimatorFactory factory = new AnimatorFactory();
                 animator = factory.CreateValueAnimator(circle, 10);
+
+                //  greendao 数据库操作
+                DaoSession session = MyApplication.getInstance().getSession();
+                session.getUserDao().save(new User(1, "ads", 12));
             }
         });
 
@@ -85,16 +91,15 @@ public class MainActivity extends AppCompatActivity {
     private class httpRequest extends Thread {
         @Override
         public void run() {
-            String url = "http://47.92.3.234:8090/rent-car-customer-interface/carTypeRecommend/semiLogin/carTypeRecommendList.gson";
+            String url = "http://47.92.3.234:8090/rent-car-customer-interface/coveredCity/semiLogin/list.gson";
             Log.e("tag", "http do-->");
             Map<String, String> params = new HashMap<>();
-            params.put("customerId", "null");
             params.put("cityName", "兰州");
 //            HttpConnection.doPost("http://wlei1818.iteye.com","GET", null);
 
             HttpConnection.getInstance().doPost(url, "POST", params);
 //            HttpConnection.doGet("http://liuwangshu.cn/application/network/1-http.html");
-            HttpConnection.getInstance().doGet("http://47.92.3.234:8090/rent-car-customer-interface/");
+            //          HttpConnection.getInstance().doGet("http://47.92.3.234:8090/rent-car-customer-interface/");
         }
     }
 
