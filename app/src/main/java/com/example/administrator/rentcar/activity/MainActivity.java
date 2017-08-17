@@ -15,12 +15,14 @@ import com.example.administrator.rentcar.R;
 import com.example.administrator.rentcar.animator.AnimatorFactory;
 import com.example.administrator.rentcar.entity.DaoSession;
 import com.example.administrator.rentcar.entity.User;
+import com.example.administrator.rentcar.entity.UserDao;
 import com.example.administrator.rentcar.net.HttpConnection;
 import com.example.administrator.rentcar.view.CircleProgressView;
 import com.example.administrator.rentcar.view.CombineEditText;
 import com.example.administrator.rentcar.view.customeET;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
@@ -48,7 +50,29 @@ public class MainActivity extends AppCompatActivity {
 
                 //  greendao 数据库操作
                 DaoSession session = MyApplication.getInstance().getSession();
-                session.getUserDao().save(new User(1, "ads", 12));
+                UserDao dao = session.getUserDao();
+                User li = new User();
+                li.setName("Lee");
+                li.setAge(10);
+//                dao.save(li);     //增     数据库
+
+                List<User> findUser = dao.queryBuilder().where(UserDao.Properties.Name.eq("Lee")).build().list();
+                if (findUser != null) {
+//                    dao.delete(findUser.get(0));  //删     数据库
+                    Log.e("tag", "delete user");
+                }
+                List<User> updateUsers = dao.queryBuilder().where(UserDao.Properties.Name.eq("Lee")).build().list();
+                if (updateUsers != null) {
+                    User user = updateUsers.get(0);
+                    user.setName("Blue");
+                    dao.update(user);       //改     数据库
+                }
+                List<User> users = dao.queryBuilder()
+                        .orderDesc(UserDao.Properties.Name)
+                        .list();            //查     数据库
+                for (User user : users) {
+                    Log.e("tag", "name=" + user.getName());
+                }
             }
         });
 
