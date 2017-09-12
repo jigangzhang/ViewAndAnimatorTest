@@ -6,6 +6,8 @@ package com.example.administrator.rentcar.net;
  * 日期 2017/8/9 11:18
  */
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.text.TextUtils;
 import android.util.Log;
 
@@ -115,6 +117,9 @@ public class HttpConnection {
         try {
             connection.connect();
             int responseCode = connection.getResponseCode();
+            if (responseCode == 200) {
+//                Bitmap bitmap = loadImg(connection);
+            }
             String responseMessage = connection.getResponseMessage();
             Log.e("tag", "code:" + responseCode + "\nmessage:" + responseMessage);
 
@@ -139,5 +144,25 @@ public class HttpConnection {
             e.printStackTrace();
         }
         return sb.toString();
+    }
+
+    private Bitmap loadImg(HttpURLConnection connection) {
+        InputStream is = null;
+        Bitmap bitmap = null;
+        try {
+            is = connection.getInputStream();
+            bitmap = BitmapFactory.decodeStream(is);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (is != null) {
+                try {
+                    is.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return bitmap;
     }
 }
