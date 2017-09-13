@@ -43,8 +43,15 @@ public class HttpConnection {
     private HttpConnection() {
     }
 
-    public static synchronized HttpConnection getInstance() {
-        return instance = new HttpConnection();
+    public static HttpConnection getInstance() {
+        if (instance == null) {
+            synchronized (HttpConnection.class) {
+                if (instance == null) {
+                    instance = new HttpConnection();
+                }
+            }
+        }
+        return instance;
     }
 
     private HttpURLConnection getHttpUrlConnection(String url, String requestMethod) {

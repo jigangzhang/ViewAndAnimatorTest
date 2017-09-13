@@ -17,6 +17,7 @@ import com.example.administrator.rentcar.entity.DaoSession;
 import com.example.administrator.rentcar.entity.User;
 import com.example.administrator.rentcar.entity.UserDao;
 import com.example.administrator.rentcar.net.HttpConnection;
+import com.example.administrator.rentcar.net.RetrofitUsage;
 import com.example.administrator.rentcar.view.CircleProgressView;
 import com.example.administrator.rentcar.view.CombineEditText;
 import com.example.administrator.rentcar.view.customeET;
@@ -80,6 +81,7 @@ public class MainActivity extends AppCompatActivity {
         customeET.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                RetrofitUsage.requestWebPage("");
                 Log.e("tag", "customeET==onclick");
                 if (animator == null) {
                     return;
