@@ -35,6 +35,7 @@ import retrofit2.http.Url;
  * @description: <p>
  * <p>
  * 参考学习：
+ * http://blog.csdn.net/lmj623565791/article/details/51304204
  * http://blog.csdn.net/carson_ho/article/details/73732076
  * 注解作用于方法的参数和注解作用于方法 的区别
  * 注解类型：
@@ -45,6 +46,8 @@ import retrofit2.http.Url;
  * 、@Query和@QueryMap（用于 @GET 方法的查询参数（Query = Url 中 ‘?’ 后面的 key-value））
  * 、@Path URL地址的缺省值、@Url 直接传入一个请求的 URL变量 用于URL设置
  * 当GET、POST...HTTP等方法中没有设置Url时，则必须使用 {@link Url}提供
+ * <p>
+ * 下载文件直接使用OKhttp,避免创建多个OKhttpclient，最好与retrofit.client使用同一个
  * </p>
  */
 
@@ -56,7 +59,7 @@ public interface NetUrlConnectionService {
     @Streaming //streaming 表示返回的数据以流的形式返回，适用于数据量较大的场景；如果没有该注解，默认将数据全部载入内存再从内存中读取数据
     @HTTP(method = "POST", path = "{fullUrl}", hasBody = true)
     Call<User> getUserData(@Path("fullUrl") String fullUrl,     //直接返回实体类需要Gson转换，及addConverterFactory(GsonConverterFactory.create())
-                           @Body String body);
+                           @Body Object body);
 
     @HTTP(method = "POST", path = "{Url}", hasBody = true)
     @FormUrlEncoded

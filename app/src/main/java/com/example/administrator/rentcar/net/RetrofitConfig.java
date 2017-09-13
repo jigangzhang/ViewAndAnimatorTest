@@ -21,6 +21,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
  * @date: 2017/9/12 15:37
  * @description: <p>
  * <p>
+ * retrofit详解：包含源码
+ * http://blog.csdn.net/lmj623565791/article/details/51304204
  * </p>
  */
 
@@ -37,6 +39,7 @@ public class RetrofitConfig {
         builder.addConverterFactory(GsonConverterFactory.create())
 //                .addCallAdapterFactory(Java8CallAdapterFactory.create())
 //                .addCallAdapterFactory(GuavaCallAdapterFactory.create())
+//                .callbackExecutor()
                 .client(client);
         return builder.build();
     }
