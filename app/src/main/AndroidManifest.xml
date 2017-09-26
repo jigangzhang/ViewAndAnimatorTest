@@ -3,6 +3,7 @@
           package="com.example.administrator.rentcar">
 
     <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.KILL_BACKGROUND_PROCESSES"/>
 
     <application
         android:name=".activity.MyApplication"
@@ -13,14 +14,30 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".activity.MainActivity">
+        </activity>
+        <activity android:name=".activity.SecondActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".activity.SecondActivity">
-        </activity>
+
+        <service
+            android:name=".service.TestService"
+            android:enabled="true"
+            android:exported="true"
+            android:process=":test">
+        </service>
+
+        <receiver
+            android:name=".receiver.TestReceiver"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.example.service.test"/>
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>

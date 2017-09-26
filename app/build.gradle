@@ -6,17 +6,28 @@ android {
     buildToolsVersion '25.0.1'
     defaultConfig {
         applicationId "com.example.administrator.rentcar"
-        minSdkVersion 16
+        minSdkVersion 19
         targetSdkVersion 25
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    signingConfigs {
+        release {
+
+        }
+        debug {
+
+        }
     }
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+    }
+    dataBinding {
+        enabled = true
     }
 }
 
@@ -37,4 +48,5 @@ dependencies {
     compile 'com.squareup.retrofit2:converter-gson:2.3.0'
     compile 'com.squareup.okhttp3:okhttp:3.9.0'
     compile 'com.squareup.retrofit2:adapter-guava:2.3.0'
+    compile 'com.github.bumptech.glide:glide:3.6.1'
 }

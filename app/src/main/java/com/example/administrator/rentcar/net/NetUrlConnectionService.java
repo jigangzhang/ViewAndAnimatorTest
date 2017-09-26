@@ -34,7 +34,7 @@ import retrofit2.http.Url;
  * @date: 2017/9/12 14:01
  * @description: <p>
  * <p>
- * 参考学习：
+ * 参考：
  * http://blog.csdn.net/lmj623565791/article/details/51304204
  * http://blog.csdn.net/carson_ho/article/details/73732076
  * 注解作用于方法的参数和注解作用于方法 的区别

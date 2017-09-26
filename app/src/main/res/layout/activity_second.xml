@@ -7,12 +7,25 @@
 
     <data>
 
+        <variable
+            name="btnName"
+            type="java.lang.String"/>
+
+        <variable
+            name="presenter"
+            type="com.example.administrator.rentcar.activity.SecondActivity"/>
     </data>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="@{()->presenter.onClick()}"
+            android:text="@{btnName}"/>
 
     </LinearLayout>
 </layout>
