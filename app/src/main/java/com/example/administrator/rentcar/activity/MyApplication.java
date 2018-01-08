@@ -1,10 +1,16 @@
 package com.example.administrator.rentcar.activity;
 
+import android.app.ActivityManager;
 import android.app.Application;
+import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
+import android.os.Process;
+import android.util.Log;
 
 import com.example.administrator.rentcar.entity.DaoMaster;
 import com.example.administrator.rentcar.entity.DaoSession;
+
+import java.util.List;
 
 
 /*
@@ -31,7 +37,7 @@ public class MyApplication extends Application {
     private SQLiteDatabase database;
     private DaoSession session;
     private static MyApplication instance;
-
+    private static int i = 0;
 
     public static MyApplication getInstance() {
         return instance;
@@ -40,10 +46,22 @@ public class MyApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        instance = this;
-        mHelper = new DaoMaster.DevOpenHelper(this, "test_db");
-        database = mHelper.getWritableDatabase();
-        session = new DaoMaster(database).newSession();
+        Log.d("tag", "App init " + i++);
+        ActivityManager manager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
+        List<ActivityManager.RunningAppProcessInfo> infos = manager.getRunningAppProcesses();
+        Log.d("tag", "App process size " + infos.size());
+        for (ActivityManager.RunningAppProcessInfo info :
+                infos) {
+            if (info.pid == Process.myPid()) {
+                if (info.processName.equals("com.example.administrator.rentcar")) {
+                    Log.d("tag", "App main process init " + i++);
+                    instance = this;
+                    mHelper = new DaoMaster.DevOpenHelper(this, "test_db");
+                    database = mHelper.getWritableDatabase();
+                    session = new DaoMaster(database).newSession();
+                }
+            }
+        }
     }
 
     public DaoSession getSession() {

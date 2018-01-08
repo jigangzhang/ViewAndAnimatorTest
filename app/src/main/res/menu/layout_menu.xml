@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/home"
+            android:checkable="true"
+            android:icon="@drawable/logo_right"
+            android:title="主页"/>
+        <item
+            android:id="@+id/about"
+            android:icon="@mipmap/ic_launcher"
+            android:title="关于"/>
+    </group>
+    <item android:title="子菜单">
+        <menu>
+            <group android:checkableBehavior="single">
+                <item
+                    android:icon="@drawable/logo_left"
+                    android:title="个人信息"/>
+                <item
+                    android:icon="@drawable/logo_right"
+                    android:title="清空缓存"/>
+            </group>
+        </menu>
+    </item>
+
+</menu>

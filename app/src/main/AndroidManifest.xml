@@ -16,11 +16,7 @@
         <activity android:name=".activity.MainActivity">
         </activity>
         <activity android:name=".activity.SecondActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
 
-                <category android:name="android.intent.category.LAUNCHER"/>
-            </intent-filter>
         </activity>
 
         <service
@@ -38,6 +34,16 @@
                 <action android:name="com.example.service.test"/>
             </intent-filter>
         </receiver>
+
+        <activity
+            android:name=".activity.DesignActivity"
+            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

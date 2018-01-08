@@ -1,10 +1,15 @@
 package com.example.administrator.rentcar.activity;
 
 import android.app.ActivityManager;
-import android.app.Service;
+import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
+import android.content.ServiceConnection;
+import android.content.SharedPreferences;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.os.IBinder;
+import android.os.Messenger;
 import android.os.Process;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -13,7 +18,10 @@ import com.example.administrator.rentcar.R;
 import com.example.administrator.rentcar.databinding.ActivitySecondBinding;
 import com.example.administrator.rentcar.service.TestService;
 
+import java.util.List;
+
 public class SecondActivity extends AppCompatActivity {
+    private Messenger mMessenger;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,43 +29,53 @@ public class SecondActivity extends AppCompatActivity {
         ActivitySecondBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_second);
         binding.setBtnName("click");
         binding.setPresenter(this);
-        startService(new Intent(this, TestService.class));
-        Log.d("tag", "MainThread process info : pid-" + Process.myPid() + " uid-" + Process.myUid() + " tid-" + Process.myTid());
+        SharedPreferences sp = getSharedPreferences("demo", Context.MODE_PRIVATE);
+        String key = sp.getString("key", null);
+        Log.e("tag", "key=" + key);
     }
 
+    ServiceConnection mConnection = new ServiceConnection() {
+        @Override
+        public void onServiceConnected(ComponentName name, IBinder service) {
+            Log.d("tag", "onServiceConnected...");
+            mMessenger = new Messenger(service);
+        }
+
+        @Override
+        public void onServiceDisconnected(ComponentName name) {
+            Log.d("tag", "onServiceDisconnected...");
+            SharedPreferences sp = getSharedPreferences("demo", Context.MODE_PRIVATE);
+            sp.edit().putString("key", "onServiceDisconnected").apply();
+        }
+    };
+
+    /**
+     * 绑定
+     */
     public void onClick() {
-        stopService(new Intent(this, TestService.class));
+        Log.d("tag", "onClick...");
+        bindService(new Intent(this, TestService.class), mConnection, BIND_AUTO_CREATE);
+    }
+
+    public void click() {
+        Log.d("tag", "click...");
+        unbindService(mConnection);
+        ActivityManager info = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
+        List<ActivityManager.RunningAppProcessInfo> runningAppProcesses =
+                info.getRunningAppProcesses();
+        for (ActivityManager.RunningAppProcessInfo runningAppProcess : runningAppProcesses) {
+            if (runningAppProcess.processName.equals("com.example.administrator.rentcar:test")) {
+                Process.killProcess(runningAppProcess.pid);
+            }
+
+        }
+//        startService(new Intent(this, TestService.class));
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        unbindService(mConnection);
         Log.d("tag", "activity destroy");
-    }
-
-    @Override
-    public void onBackPressed() {
-        Log.d("tag", "system exit");
-//        onDestroy();
-        ActivityManager manager = (ActivityManager) getSystemService(Service.ACTIVITY_SERVICE);
-//        manager.restartPackage(getPackageName());//需要其他方式配合使用？测试，不能结束进程，该方法已失效
-//        manager.killBackgroundProcesses(getPackageName());//需要其他方式配合，不然会重新启动进程？？使用此方法可杀掉多进程
-//        Process.killProcess(Process.myPid());//经测试，本地service不再存活，不触发service onDestroy.kill uid 不退出当前应用，且远程service继续工作，
-        // 应使用pid，且与killBackgroundProcesses配合使用杀掉远程进程
-        System.exit(0); //经测试，本地service不再存活，不触发service onDestroy
-//        finish();//看Service是否在后台活动，经测试，service继续工作
-
-       /* try {
-            Method method = Class.forName("ActivityManager").getMethod("forceStopPackage", String.class);
-            method.invoke(manager, getPackageName());
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        } catch (NoSuchMethodException e) {
-            e.printStackTrace();
-        }catch (IllegalAccessException e) {
-            e.printStackTrace();
-        } catch (InvocationTargetException e) {
-            e.printStackTrace();
-        }*/
     }
 }
