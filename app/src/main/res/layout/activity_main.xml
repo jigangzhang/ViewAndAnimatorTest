@@ -6,20 +6,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.example.administrator.rentcar.activity.MainActivity">
+    tools:context="com.example.administrator.learntask.activity.MainActivity">
 
 
-    <com.example.administrator.rentcar.view.TestEditText
-        android:id="@+id/test"
+    <TextView
+        android:id="@+id/main_text"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_margin="5dp"
-        android:orientation="horizontal"
-        android:background="@drawable/drawable_background"
-        app:addLeftText="true"
-        />
+        android:layout_height="40dp"
+        android:gravity="center" />
 
-    <com.example.administrator.rentcar.view.CombineEditText
+    <com.example.administrator.learntask.view.CombineEditText
         android:id="@+id/mConombineEidt"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -31,12 +27,12 @@
         app:editTextGravity="END"
         app:leftText="账号"
         app:leftTextVisible="true"
-        app:editEnabled="false"
+        app:editEnabled="true"
         app:rightIconVisible="true"
         app:hidePhoneNumber="true"
         app:editInputType="PHONE"/>
 
-    <com.example.administrator.rentcar.view.CombineEditText
+    <com.example.administrator.learntask.view.CombineEditText
         android:id="@+id/edit2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -51,7 +47,7 @@
         app:leftText="密码"
         app:editEnabled="true"/>
 
-    <com.example.administrator.rentcar.view.customeET
+    <com.example.administrator.learntask.view.customeET
         android:id="@+id/test001"
         android:layout_width="match_parent"
         android:layout_height="45dp"
@@ -59,7 +55,7 @@
         android:layout_margin="5dp"
         android:maxLines="1"/>
 
-    <com.example.administrator.rentcar.view.CircleProgressView
+    <com.example.administrator.learntask.view.CircleProgressView
         android:id="@+id/cirlce_test"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
