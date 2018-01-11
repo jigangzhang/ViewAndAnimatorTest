@@ -3,6 +3,8 @@ package com.example.administrator.learntask.viewmodel;
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.ViewModel;
+import android.arch.lifecycle.ViewModelProvider;
+import android.support.annotation.NonNull;
 
 import com.example.administrator.learntask.activity.MyApplication;
 import com.example.administrator.learntask.entity.DaoSession;
@@ -58,5 +60,13 @@ public class MainViewModel extends ViewModel {
                 .orderDesc(UserDao.Properties.Name)
                 .list();            //查     数据库
         name.setValue(users);
+    }
+
+    public class MainFactory extends ViewModelProvider.NewInstanceFactory {
+        @NonNull
+        @Override
+        public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
+            return (T) new MainViewModel();
+        }
     }
 }

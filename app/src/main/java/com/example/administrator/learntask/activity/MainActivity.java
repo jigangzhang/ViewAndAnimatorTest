@@ -26,6 +26,8 @@ import com.example.administrator.learntask.entity.UserDao;
 import com.example.administrator.learntask.net.HttpConnection;
 import com.example.administrator.learntask.net.RetrofitUsage;
 import com.example.administrator.learntask.observer.MainObserver;
+import com.example.administrator.learntask.subject.observer.StringObserver;
+import com.example.administrator.learntask.subject.subject.StringSubject;
 import com.example.administrator.learntask.view.CircleProgressView;
 import com.example.administrator.learntask.view.CombineEditText;
 import com.example.administrator.learntask.view.customeET;
@@ -71,11 +73,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }
             }
         });
+        //被观察者：发布者
+        final StringSubject subject = new StringSubject();
+        //观察者：订阅者
+        subject.attach(new StringObserver("lee"));
+        subject.attach(new StringObserver("blue"));
+
 
         combineEdit.setOnTextChangeListener(new CombineEditText.OnTextChangeListener() {
             @Override
             public void onTextChanged(String text) {
                 viewModel.getData().setValue(text);//postValue可用于从后台线程向主线程赋值
+                subject.notify(text);
             }
         });
         combineEdit.setOnClickListener(new View.OnClickListener() {
